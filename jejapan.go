@@ -1,6 +1,7 @@
 /*
 Copyright © Portalnesia <support@portalnesia.com>
 */
+
 package saka
 
 type Jejapan struct {

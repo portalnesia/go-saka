@@ -1,6 +1,10 @@
 /*
-Copyright © Portalnesia <support@portalnesia.com>
-*/
+ * Copyright (c) Portalnesia - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by Putu Aditya <aditya@portalnesia.com>
+ */
+
 package saka
 
 type Rahinan struct {
@@ -73,46 +77,7 @@ func newRahinan() Rahinan {
 	}
 }
 
-// func newRahinanSlice() []Data {
-// 	data := newRahinan()
-// 	return []Data{
-// 		data.SomaRibek,
-// 		data.SabuhEmas,
-// 		data.PagerWesi,
-// 		data.TumpekLandep,
-// 		data.TumpekUduh,
-// 		data.SugihanJawa,
-// 		data.SugihanBali,
-// 		data.PenyekebanGalungan,
-// 		data.PenyajanGalungan,
-// 		data.PenampahanGalungan,
-// 		data.Galungan,
-// 		data.ManisGalungan,
-// 		data.PemaridanGuru,
-// 		data.Ulihan,
-// 		data.PemacekanAgung,
-// 		data.PenampahanKuningan,
-// 		data.Kuningan,
-// 		data.PegatUwakan,
-// 		data.TumpekKandang,
-// 		data.TumpekWayang,
-// 		data.Saraswati,
-// 		data.BanyuPinaruh,
-// 		data.SiwaRatri,
-// 		data.TawurAgungKasanga,
-// 		data.Nyepi,
-// 		data.NgembakGeni,
-// 		data.BudaCemeng,
-// 		data.AnggaraKasih,
-// 		data.KajengKliwon,
-// 		data.Purnama,
-// 		data.Tilem,
-// 	}
-// }
-
-/*
-Get Rahinan for Saka instance
-*/
+// Rahinan Get rahinan for Saka instance
 func (s *Saka) Rahinan() []Data {
 	if s.rahinan == nil {
 		arr := []Data{}
@@ -193,7 +158,7 @@ func (s *Saka) Rahinan() []Data {
 			}
 		}
 
-		temp := s.Carbon
+		temp := s.Carbon()
 
 		n1Day := New(temp.AddDay())
 		b1Day := New(temp.SubDay())

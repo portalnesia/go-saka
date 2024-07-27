@@ -1,9 +1,14 @@
 /*
-Copyright © Portalnesia <support@portalnesia.com>
-*/
+ * Copyright (c) Portalnesia - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by Putu Aditya <aditya@portalnesia.com>
+ */
+
 package saka
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/golang-module/carbon"
@@ -58,6 +63,7 @@ func TestRangeListAllRahinan(t *testing.T) {
 	if len(rahinan) != 2 {
 		t.Error("Rahinan failed")
 	}
+	fmt.Printf("All Rahinan: %#v\n", rahinan)
 }
 
 func TestRangeListByDate(t *testing.T) {
@@ -72,22 +78,23 @@ func TestRangeListByDate(t *testing.T) {
 	rahinan := saka.ListByDate()
 	for i, r := range rahinan {
 		if i == 0 {
-			if r.Saka.Carbon.DayOfMonth() != d1.DayOfMonth() {
-				t.Errorf("First date not same: %s", r.Saka.Carbon.ToString())
+			if r.Saka.Carbon().DayOfMonth() != d1.DayOfMonth() {
+				t.Errorf("First date not same: %s", r.Saka.Carbon().ToString())
 			}
-			if r.Rahinan[0].ID != 28 {
-				t.Errorf("First rahinan not same: %s", r.Rahinan[0].Name)
+			if r.Rahinan()[0].ID != 28 {
+				t.Errorf("First rahinan not same: %s", r.Rahinan()[0].Name)
 			}
 		}
 		if i == len(rahinan)-1 {
-			if r.Saka.Carbon.DayOfMonth() != d2.DayOfMonth() {
-				t.Errorf("Last date not same: %s", r.Saka.Carbon.ToString())
+			if r.Saka.Carbon().DayOfMonth() != d2.DayOfMonth() {
+				t.Errorf("Last date not same: %s", r.Saka.Carbon().ToString())
 			}
-			if r.Rahinan[0].ID != 29 {
-				t.Errorf("Last rahinan not same: %s", r.Rahinan[0].Name)
+			if r.Rahinan()[0].ID != 29 {
+				t.Errorf("Last rahinan not same: %s", r.Rahinan()[0].Name)
 			}
 		}
 	}
+	fmt.Printf("Rahinan By Date: %#v\n", rahinan)
 }
 
 func TestMaxRangeError(t *testing.T) {

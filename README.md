@@ -18,39 +18,55 @@ go get -u go.portalnesia.com/saka
 package main
 
 import (
-    "go.portalnesia.com/saka"
-    "github.com/golang-module/carbon"
+	"fmt"
+	"time"
+	"github.com/golang-module/carbon"
+	"go.portalnesia.com/saka"
 )
 
 func oneDate() {
-    saka_instance := saka.New()
-    
-    // Get information about the date
-    saka_instance.EkaWara
-    saka_instance.PancaWara
-    saka_instance.Sasih
-    // and others...
+	sakaInstance := saka.New()
 
-    all_rahinan := saka_instance.Rahinan()
-    // todo with list rahinan
-    if all_rahinan[0] == saka.Enum.Rahinan.Nyepi {
+	// Get information about the date
+	fmt.Println("Eka Wara", sakaInstance.EkaWara)
+	fmt.Println("Panca Wara", sakaInstance.PancaWara)
+	fmt.Println("Sasih", sakaInstance.Sasih)
 
-    }
-    // and others...
-    
+	// and others...
+
+	allRahinan := sakaInstance.Rahinan()
+	for _, rahinan := range allRahinan {
+		// todo with list rahinan
+		if rahinan == saka.Enum.Rahinan.Nyepi {
+
+		}
+	}
+
 }
 
 func rangeDate() {
-    d1 := carbon.CreateFromDate(2023, 8, 27)
+	d1 := carbon.CreateFromDate(2023, 8, 27)
 	d2 := carbon.CreateFromDate(2023, 8, 31)
 
-    saka_instance := saka.NewRange(d1,d2)
+	sakaInstance, _ := saka.NewRange(d1, d2)
 
-    // List all rahinan
-    all_rahinan := saka_instance.ListAllRahinan()
+	// List all rahinan in range d1 - d2
+	allRahinan := sakaInstance.ListAllRahinan()
+	for _, r := range allRahinan {
+		fmt.Println(r.Name)
+	}
 
-    // List by date
-    date_list := saka_instance.ListByDate()
+	// List by date
+	sakaList := sakaInstance.ListByDate()
+	for _, s := range sakaList {
+		fmt.Printf("Rahinan for %s\n", s.Time().Format(time.RFC3339))
+
+		for _, r := range s.Rahinan() {
+			fmt.Println(r.Name)
+		}
+		
+		fmt.Println()
+	}
 }
 ```
 

@@ -1,10 +1,15 @@
 /*
-Copyright © Portalnesia <support@portalnesia.com>
-*/
+ * Copyright (c) Portalnesia - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by Putu Aditya <aditya@portalnesia.com>
+ */
+
 package saka
 
 import (
 	"math"
+	"time"
 
 	"github.com/golang-module/carbon"
 )
@@ -66,7 +71,8 @@ var Enum = enumData{
 }
 
 type Saka struct {
-	Carbon            carbon.Carbon
+	carbon carbon.Carbon
+
 	Wuku              WukuData
 	TriWara           Wara
 	PancaWara         PancaWaraData
@@ -96,22 +102,32 @@ type Saka struct {
 	rahinan *[]Data
 }
 
-/*
-Create new Saka instance
+// Carbon get carbon instance for current Saka
+func (s *Saka) Carbon() carbon.Carbon {
+	return s.carbon
+}
 
-Accept any format of date. For example
+// Time get time instance for current Saka
+func (s *Saka) Time() time.Time {
+	return s.carbon.ToStdTime()
+}
 
-  - 2023-08-03 // valid date string
-  - time.Now() // time package
-  - carbon.Now() // carbon package
-
-Default: now
-*/
-func New(date_arg ...interface{}) *Saka {
+// New Create new Saka instance
+//
+// Accept any format of date. For example
+//
+// - 2023-08-03 // valid date string
+//
+// - time.Now() // time package
+//
+// - carbon.Now() // carbon package
+//
+// Default: now
+func New(dateArg ...interface{}) *Saka {
 	saka := Saka{}
 
-	date := getCarbon(date_arg...)
-	saka.Carbon = date
+	date := getCarbon(dateArg...)
+	saka.carbon = date
 
 	pivot := getBestPivot(date)
 	pawukonDay := getPawukonDay(pivot, date)

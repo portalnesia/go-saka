@@ -1,6 +1,10 @@
 /*
-Copyright © Portalnesia <support@portalnesia.com>
-*/
+ * Copyright (c) Portalnesia - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by Putu Aditya <aditya@portalnesia.com>
+ */
+
 package saka
 
 import (
@@ -10,23 +14,22 @@ import (
 )
 
 type SakaRangeDate struct {
-	Saka    Saka   // Saka instance
-	Rahinan []Data // Array of Rahinan
+	*Saka
 }
 
 type SakaRange struct {
 	data []SakaRangeDate
 }
 
-/*
-Create new Saka range instance
-
-Accept any format of date. For example
-
-  - 2023-08-03 // valid date string
-  - time.Now() // time package
-  - carbon.Now() // carbon package
-*/
+// NewRange Create new Saka range instance
+//
+// Accept any format of date. For example
+//
+// - 2023-08-03 // valid date string
+//
+// - time.Now() // time package
+//
+// - carbon.Now() // carbon package
 func NewRange(date1 interface{}, date2 interface{}) (*SakaRange, error) {
 	if date1 == nil || date2 == nil {
 		return nil, errors.New("date1 and date2 cannot be nil")
@@ -54,8 +57,8 @@ func NewRange(date1 interface{}, date2 interface{}) (*SakaRange, error) {
 
 	for i := int64(0); i < rangeDate; i++ {
 		sk := New(date)
-		rahinan := sk.Rahinan()
-		response = append(response, SakaRangeDate{Saka: *sk, Rahinan: rahinan})
+		_ = sk.Rahinan()
+		response = append(response, SakaRangeDate{Saka: sk})
 		date = date.AddDay()
 	}
 
@@ -66,19 +69,17 @@ func NewRange(date1 interface{}, date2 interface{}) (*SakaRange, error) {
 	return &sakaRange, nil
 }
 
-/*
-List all Rahinan in the range by date
-*/
+// ListByDate List all rahinan in the range by date
 func (s *SakaRange) ListByDate() []SakaRangeDate {
 	return s.data
 }
 
-// List all Rahinan in the range
+// ListAllRahinan List all rahinan in the range
 func (s *SakaRange) ListAllRahinan() []Data {
-	var response []Data
+	response := make([]Data, 0)
 
 	for _, v := range s.data {
-		response = append(response, v.Rahinan...)
+		response = append(response, v.Rahinan()...)
 	}
 
 	return response
