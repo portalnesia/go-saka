@@ -14,7 +14,7 @@ import (
 	"time"
 )
 
-func main() {
+func RangeDate() {
 	d1 := carbon.CreateFromDate(2023, 8, 27)
 	d2 := carbon.CreateFromDate(2023, 8, 31)
 

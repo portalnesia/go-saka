@@ -12,7 +12,7 @@ import (
 	"go.portalnesia.com/saka"
 )
 
-func main() {
+func OneDay() {
 	sakaInstance := saka.New()
 
 	// Get information about the date
