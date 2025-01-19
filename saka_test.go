@@ -12,7 +12,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/golang-module/carbon"
+	"github.com/dromara/carbon/v2"
 )
 
 func TestEqual(t *testing.T) {

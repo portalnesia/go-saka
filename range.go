@@ -10,7 +10,7 @@ package saka
 import (
 	"errors"
 
-	"github.com/golang-module/carbon"
+	"github.com/dromara/carbon/v2"
 )
 
 type SakaRangeDate struct {

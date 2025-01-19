@@ -7,7 +7,7 @@
 
 package saka
 
-import "github.com/golang-module/carbon"
+import "github.com/dromara/carbon/v2"
 
 type PivotData struct {
 	Carbon        carbon.Carbon

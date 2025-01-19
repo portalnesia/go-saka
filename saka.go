@@ -11,7 +11,7 @@ import (
 	"math"
 	"time"
 
-	"github.com/golang-module/carbon"
+	"github.com/dromara/carbon/v2"
 )
 
 type enumData struct {
@@ -109,7 +109,7 @@ func (s *Saka) Carbon() carbon.Carbon {
 
 // Time get time instance for current Saka
 func (s *Saka) Time() time.Time {
-	return s.carbon.ToStdTime()
+	return s.carbon.StdTime()
 }
 
 // New Create new Saka instance

@@ -20,7 +20,7 @@ package main
 import (
 	"fmt"
 	"time"
-	"github.com/golang-module/carbon"
+	"github.com/dromara/carbon/v2"
 	"go.portalnesia.com/saka"
 )
 

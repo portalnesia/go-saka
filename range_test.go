@@ -11,7 +11,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/golang-module/carbon"
+	"github.com/dromara/carbon/v2"
 )
 
 func TestDateNil(t *testing.T) {

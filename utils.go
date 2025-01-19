@@ -12,7 +12,7 @@ import (
 	"math"
 	"time"
 
-	"github.com/golang-module/carbon"
+	"github.com/dromara/carbon/v2"
 )
 
 const (
@@ -47,7 +47,7 @@ func getCarbon(argument ...interface{}) carbon.Carbon {
 		case []byte:
 			data = carbon.Parse(string(v))
 		case time.Time:
-			data = carbon.FromStdTime(v)
+			data = carbon.CreateFromStdTime(v)
 		default:
 
 		}
