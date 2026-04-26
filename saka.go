@@ -71,7 +71,7 @@ var Enum = enumData{
 }
 
 type Saka struct {
-	carbon carbon.Carbon
+	carbon *carbon.Carbon
 
 	Wuku              WukuData
 	TriWara           Wara
@@ -103,7 +103,7 @@ type Saka struct {
 }
 
 // Carbon get carbon instance for current Saka
-func (s *Saka) Carbon() carbon.Carbon {
+func (s *Saka) Carbon() *carbon.Carbon {
 	return s.carbon
 }
 

@@ -45,7 +45,7 @@ func NewRange(date1 interface{}, date2 interface{}) (*SakaRange, error) {
 	}
 
 	tmpRange := d1.DiffInDays(d2)
-	var date carbon.Carbon
+	var date *carbon.Carbon
 
 	if tmpRange < 0 {
 		date = d2

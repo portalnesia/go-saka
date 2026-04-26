@@ -24,17 +24,19 @@ var pangalantakaPaing = carbon.CreateFromDate(2000, 1, 6)
 var skStart = carbon.CreateFromDate(1993, 1, 24)
 var skEnd = carbon.CreateFromDate(2003, 1, 3)
 
-var c_ekajalarsislice []int = []int{23, 7, 17, 7, 23, 23, 17, 9, 7, 13, 26, 24, 23, 20, 13, 7, 13, 25, 19, 6, 2,
+var c_ekajalarsislice []int = []int{
+	23, 7, 17, 7, 23, 23, 17, 9, 7, 13, 26, 24, 23, 20, 13, 7, 13, 25, 19, 6, 2,
 	14, 26, 17, 20, 25, 22, 0, 10, 6, 15, 23, 7, 17, 23, 17, 25, 5, 23, 2, 2, 2, 12, 12, 5, 14, 12, 26, 26, 1,
 	23, 23, 15, 25, 15, 6, 9, 25, 18, 25, 11, 15, 21, 25, 25, 12, 0, 17, 13, 0, 15, 23, 12, 7, 16, 25, 18, 24,
 	12, 12, 6, 7, 6, 26, 7, 6, 12, 7, 25, 2, 12, 25, 25, 14, 15, 26, 7, 12, 20, 7, 6, 25, 25, 6, 13, 25, 17, 13,
 	23, 6, 26, 20, 25, 25, 23, 7, 18, 18, 17, 7, 17, 7, 5, 26, 17, 6, 9, 12, 12, 13, 25, 18, 18, 6, 2, 25, 25,
 	2, 25, 17, 20, 14, 27, 23, 17, 8, 25, 17, 6, 17, 7, 3, 15, 18, 25, 2, 7, 13, 25, 20, 7, 15, 15, 23, 7, 8,
 	24, 2, 12, 9, 24, 24, 17, 24, 20, 7, 12, 12, 14, 18, 25, 20, 5, 18, 5, 20, 26, 12, 23, 18, 17, 17, 25, 15,
-	2, 24, 4, 2, 23, 25, 18, 25, 20, 14, 4, 2, 25, 7, 25, 17}
+	2, 24, 4, 2, 23, 25, 18, 25, 20, 14, 4, 2, 25, 7, 25, 17,
+}
 
-func getCarbon(argument ...interface{}) carbon.Carbon {
-	var data carbon.Carbon
+func getCarbon(argument ...interface{}) *carbon.Carbon {
+	var data *carbon.Carbon
 
 	if len(argument) == 0 {
 		data = carbon.Now()
@@ -42,8 +44,10 @@ func getCarbon(argument ...interface{}) carbon.Carbon {
 		switch v := argument[0].(type) {
 		case string:
 			data = carbon.Parse(v)
-		case carbon.Carbon:
+		case *carbon.Carbon:
 			data = v
+		case carbon.Carbon:
+			data = &v
 		case []byte:
 			data = carbon.Parse(string(v))
 		case time.Time:
@@ -59,7 +63,7 @@ func getCarbon(argument ...interface{}) carbon.Carbon {
 	return now
 }
 
-func getBestPivot(carbon carbon.Carbon) PivotData {
+func getBestPivot(carbon *carbon.Carbon) PivotData {
 	if pangalantakaPaing.DiffInDays(carbon) < 0 {
 		return Enum.Pivot.Pivot1971
 	}
@@ -70,11 +74,11 @@ func mod(a int64, b int64) int64 {
 	return ((a % b) + b) % b
 }
 
-func delta(a carbon.Carbon, b carbon.Carbon) int64 {
+func delta(a *carbon.Carbon, b *carbon.Carbon) int64 {
 	return a.DiffInDays(b)
 }
 
-func getPawukonDay(pivot PivotData, date carbon.Carbon) int64 {
+func getPawukonDay(pivot PivotData, date *carbon.Carbon) int64 {
 	return mod(int64(pivot.PawukonDay)+delta(pivot.Carbon, date), c_day_pawukon)
 }
 
@@ -105,7 +109,7 @@ func getSangawara(pawukonDay int64) Wara {
 	return Enum.SangaWara.Dangu
 }
 
-func getSasihInfo(pivot PivotData, date carbon.Carbon) []int64 {
+func getSasihInfo(pivot PivotData, date *carbon.Carbon) []int64 {
 	res := make([]int64, 3)
 	pTime := pivot.Carbon
 	dayDiff := delta(pTime, date)
@@ -228,7 +232,7 @@ func getSasihInfo(pivot PivotData, date carbon.Carbon) []int64 {
 	return res
 }
 
-func getSasihDay(pivot PivotData, date carbon.Carbon) []int64 {
+func getSasihDay(pivot PivotData, date *carbon.Carbon) []int64 {
 	res := make([]int64, 3)
 
 	pTime := pivot.Carbon
@@ -307,7 +311,7 @@ func getSasihDayInfo(resSasihDay []int64, sasih SasihData, saka int64) SasihDayI
 	}
 }
 
-func getPratithiSamutPada(sasihDay []int64, sasihDayInfo SasihDayInfoData, sasih SasihData, date carbon.Carbon) Data {
+func getPratithiSamutPada(sasihDay []int64, sasihDayInfo SasihDayInfoData, sasih SasihData, date *carbon.Carbon) Data {
 	move := int64(0)
 	isNG := len(sasihDay) > 1
 	day := sasihDay[0]
